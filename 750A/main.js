@@ -34,17 +34,37 @@ function printSameLine(x) {
 
 function main(){
 
+    const timeTillParty = 240;
+    function canAttendParty(timeToSolveProblems, minutesToGetToParty){
+        return timeTillParty - minutesToGetToParty - timeToSolveProblems >= 0;
+
+    }
+
+    // returns 5 + 10 + ... + N
+    function timeToSolveNProblems(N){
+        return 5 * (N+1) * (N/2);
+    }
+
     function solution(numberOfProblems, minutesToGetToParty){
-        const totalTime = 240;
-        var timeRemaning = totalTime - minutesToGetToParty;
-        var problemsSolved = 0;
+        var startIndex = 0;
+        var endIndex = numberOfProblems;
 
-        while(timeRemaning - 5 * (problemsSolved + 1) >= 0){
-            problemsSolved++;
-            timeRemaning = timeRemaning - 5 * problemsSolved;
+        while(startIndex < endIndex){
+            var average = ((startIndex) + parseInt(endIndex))/2;
+            var midpoint = Math.ceil(average);
+            var timeToSolveProblems = timeToSolveNProblems(midpoint);
 
+            if(canAttendParty(timeToSolveProblems, minutesToGetToParty, timeToSolveProblems)){
+                // try to solve more problems
+                startIndex = midpoint;
+
+            }else {
+                // try to solve less problems
+                endIndex = Math.floor((startIndex + endIndex)/2);
+            }
         }
-        return Math.min(problemsSolved, numberOfProblems);
+
+        return startIndex;
     }
 
     const line1 = readline().split(" ");
