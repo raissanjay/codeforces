@@ -34,92 +34,34 @@ function printSameLine(x) {
 
 function main(){
 
-    function SomeHeap() {
-        this.minHeap = [];
-        this.maxValue = Number.NEGATIVE_INFINITY;
+    function getMaxValue(mostOccupiedBench, additionalPeopleComing){
+        return mostOccupiedBench + additionalPeopleComing;
+
     }
-
-    SomeHeap.prototype.insert = function(val){
-        if(val > this.maxValue){
-            this.maxValue = val;
-        }
-        this.minHeap.push(val);
-        var lastElement = this.minHeap.length - 1;
-        this.bubbleIntoPlace(lastElement)
-    };
-
-    SomeHeap.prototype.bubbleIntoPlace = function(childNodeIndex){
-        while(childNodeIndex > 0){
-            var parentNodeIndex = Math.ceil(childNodeIndex/2) - 1;
-            var parentNodeValue = this.minHeap[parentNodeIndex];
-            var childNodeValue = this.minHeap[childNodeIndex];
-
-            // if parent is greater than child
-            if ( parentNodeValue > childNodeValue) {
-                // swap
-                var temp = this.minHeap[parentNodeIndex];
-                this.minHeap[parentNodeIndex] = this.minHeap[childNodeIndex];
-                this.minHeap[childNodeIndex] = temp;
-            }
-
-            childNodeIndex = parentNodeIndex;
-        }
-    };
-
-    SomeHeap.prototype.incrementMin = function(){
-        var parentNodeIndex = 0;
-        var leftChildNodeIndex = 1;
-        var rightChildNodeIndex = 2;
-
-        this.minHeap[parentNodeIndex]++;
-        if(this.minHeap[parentNodeIndex] > this.maxValue){
-            this.maxValue = this.minHeap[parentNodeIndex];
-        }
-
-        while(this.minHeap[parentNodeIndex] > this.minHeap[leftChildNodeIndex] || this.minHeap[parentNodeIndex] > this.minHeap[rightChildNodeIndex]) {
-            if(this.minHeap[parentNodeIndex] > this.minHeap[leftChildNodeIndex]){
-                // swap left
-                var temp = this.minHeap[parentNodeIndex];
-                this.minHeap[parentNodeIndex] = this.minHeap[leftChildNodeIndex];
-                this.minHeap[leftChildNodeIndex] = temp;
-
-                parentNodeIndex = leftChildNodeIndex;
-                leftChildNodeIndex = 2 * parentNodeIndex + 1;
-                rightChildNodeIndex = 2 * parentNodeIndex + 2;
-            }
-            else {
-                // swap right
-                var temp = this.minHeap[parentNodeIndex];
-                this.minHeap[parentNodeIndex] = this.minHeap[rightChildNodeIndex];
-                this.minHeap[rightChildNodeIndex] = temp;
-
-                parentNodeIndex = rightChildNodeIndex;
-                leftChildNodeIndex = 2 * parentNodeIndex + 1;
-                rightChildNodeIndex = 2 * parentNodeIndex + 2;
-            }
-        }
-
-    };
-
 
     var numberOfBenches = parseInt(readline());
+    var initialPeopleOnBench = 0;
     var additionalPeopleComing = parseInt(readline());
-    var someHeap = new SomeHeap();
+    var mostOccupiedBench = Number.NEGATIVE_INFINITY;
+
 
     for(var i = 0; i < numberOfBenches; i++){
-        someHeap.insert(parseInt(readline()));
+        var initialPeopleOnIthBench = parseInt(readline());
+        if(mostOccupiedBench < initialPeopleOnIthBench){
+            mostOccupiedBench = initialPeopleOnIthBench;
+        }
+        initialPeopleOnBench += initialPeopleOnIthBench;
     }
 
-    var maxValue = someHeap.maxValue + additionalPeopleComing;
+    var totalNumberOfPeople = additionalPeopleComing + initialPeopleOnBench;
+    var maxValue = getMaxValue(mostOccupiedBench, additionalPeopleComing);
+    var minValue = null;
 
-    while(additionalPeopleComing > 0){
-        someHeap.incrementMin();
-        additionalPeopleComing--;
+    if(additionalPeopleComing <= mostOccupiedBench * numberOfBenches - initialPeopleOnBench){
+        minValue = mostOccupiedBench;
+    }  else {
+        minValue = Math.ceil(totalNumberOfPeople/numberOfBenches);
     }
-
-
-
-    var minValue = someHeap.maxValue;
 
     print(minValue + " " + maxValue);
 }
