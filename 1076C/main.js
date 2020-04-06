@@ -53,10 +53,11 @@ function main(){
 
         // TODO: Figure out cases for d: 0 -> d: 4
         if(d === 0) {
-            print("Y");
+            print("Y 0 0");
         }
         if(d < 4) {
             print("N");
+            return;
         }
 
         while(Math.abs(d - val) >= MARGIN_OF_ERROR_LIMIT){
@@ -69,7 +70,7 @@ function main(){
             mid = low + (high - low)/2;
             val = getValue(mid);
         }
-        print(mid + " " + (d-mid));
+        print("Y " + mid + " " + (d-mid));
     }
 
     const length = readline();
