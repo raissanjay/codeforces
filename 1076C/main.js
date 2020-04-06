@@ -51,6 +51,14 @@ function main(){
         var mid = low + (low + high)/2;
         var val = getValue(mid);
 
+        // TODO: Figure out cases for d: 0 -> d: 4
+        if(d === 0) {
+            print("Y");
+        }
+        if(d < 4) {
+            print("N");
+        }
+
         while(Math.abs(d - val) >= MARGIN_OF_ERROR_LIMIT){
             if(d - val > 0) {
                 low = mid ;
@@ -61,11 +69,14 @@ function main(){
             mid = low + (high - low)/2;
             val = getValue(mid);
         }
-        return val;
+        print(mid + " " + (d-mid));
     }
 
-    const n = readline();
-    solution(parseInt(n));
+    const length = readline();
+    for(var i = 0; i < length; i++){
+        solution(parseInt(readline()));
+    }
+
 }
 
 
