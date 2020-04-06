@@ -51,15 +51,6 @@ function main(){
         var mid = low + (low + high)/2;
         var val = getValue(mid);
 
-        // TODO: Figure out cases for d: 0 -> d: 4
-        if(d === 0) {
-            print("Y 0 0");
-        }
-        if(d < 4) {
-            print("N");
-            return;
-        }
-
         while(Math.abs(d - val) >= MARGIN_OF_ERROR_LIMIT){
             if(d - val > 0) {
                 low = mid ;
