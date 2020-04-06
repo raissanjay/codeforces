@@ -68,6 +68,11 @@ function main(){
                 high = mid;
             }
             mid = low + (high - low)/2;
+            /* get value equation cannot handle guesses of 1, since denominator approaches infinity */
+            if(mid === 1){
+                print("N");
+                return;
+            }
             val = getValue(mid);
         }
         print("Y " + mid + " " + (d-mid));
