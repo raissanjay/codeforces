@@ -76,9 +76,12 @@ function main(){
             }
         }
 
-        // better way to do this with offset to prevent O(N) top operation
+        var queueOffset = 0;
         queue.top = function(){
-            return queue.shift();
+            var top = queue[queueOffset];
+            queueOffset++;
+            return top;
+            //return queue.shift();
         };
 
         // This operation is O(n), where n is the number of verticies
@@ -92,7 +95,6 @@ function main(){
         }
 
         function bfs(someNode){
-            debugger;
             if(colorsMatch(currentColors, endingColors)){
                 queue = [];
                 return;
