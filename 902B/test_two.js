@@ -1,60 +1,6 @@
-/**
- *
- *** Problem Notes ****
- *
- *  Max input size is 10^4. So n^2 -> (10^4)^2 = 10^8 so O(n^2) should be okay for 1 sec run time.
- *
- *  10^8 operations per 1 second
- *  10^7 operations per .1 second
- *  10^6 operations per .01 seconds
- *  10^5 operations per .001 seconds -> 1 ms
- *
- *  For test case 18:
- *      input size is 10^5 -> which means each O(N) operation should take 1ms
- *
- *      graph = getAdjacencyListFromInput(n, p); // O(n) + O(n) + O(n-1)
- *      currentColors = initializeCurrentColors(n+1); // O(n)
- *      addZeroToFrontOfArray(c); // O(n)
- *      bfs(rootNode); // O(n^2), but only does one iteration before everything is pointed O(n)
- *
- *      Estimated run time is O(n) + O(n) + O(n-1) + O(n) + O(n) + (n) = 6ms
- *      Actual run time is 12ms, so each O(n) true run time ~ 2 ms
-
- */
-
-'use strict';
-
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let currentLine = 0;
-
-process.stdin.on('data', inputStdin => {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', _ => {
-    inputString = inputString.trim().split('\n').map(string => {
-        return string.trim();
-    });
-
-    main();
-});
-
-function readline() {
-    return inputString[currentLine++];
-}
-
-function print(x) {
-    console.log(x);  // with auto '\n' (newline)
-}
-
-function printSameLine(x) {
-    process.stdout.write(x);
-}
-
-// Make a Snippet for the code above this and then write your logic in main();
+var n = 6;
+var p = [1, 2, 2, 1, 5];
+var c = [2, 1, 1, 1, 1, 1];
 
 
 /**
@@ -276,7 +222,4 @@ function main(){
     solution(n, p, c);
     print(ans);
 }
-
-
-
 
