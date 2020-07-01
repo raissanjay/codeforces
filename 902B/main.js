@@ -118,10 +118,10 @@ function main(){
 
             while(stack.length > 0){
                 var current = stack.pop();
-                currentColors[current] = someColor;
+                currentColors[current] = someColor; // colors current node
                 var childNodes = graph[current];
 
-                for(var i = 0; i < childNodes.length; i++){
+                for(var i = childNodes.length - 1; i >= 0 ; i--){
                     var child = childNodes[i];
                     stack.push(child);
                 }
@@ -129,6 +129,15 @@ function main(){
             }
         }
 
+        /**
+         * This queue implementation is wrong and only works because I set queue = []
+         * once there is a match found.
+         *
+         * If there is never a match, this code wouldn't work.
+         *
+         * Check bfs.js for proper implementation of queue
+         *
+         */
         var queueOffset = 0;
         queue.top = function(){
             var top = queue[queueOffset];

@@ -16,9 +16,11 @@ var graph = [
 var seen = new Set();
 
 function dfs(node){
-    if(seen.has(node)){
-        return;
-    }
+    // not needed because this is not a graph where children can
+    // connect to parents
+    // if(seen.has(node)){
+    //     return;
+    // }
 
     // process node
     console.log(node);
